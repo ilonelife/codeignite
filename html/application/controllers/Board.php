@@ -33,6 +33,7 @@ class Board extends CI_Controller {
 		$config['full_tag_close'] = '</p>';
 		$config['first_link'] = '처음으로';
 		$config['last_link'] = '끝으로';
+		$config['reuse_query_string'] = true;
 		$this->pagination->initialize($config);
 		//pagenation 끝
 		
