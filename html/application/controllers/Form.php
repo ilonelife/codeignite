@@ -29,4 +29,12 @@ class Form extends CI_Controller {
 		header("Location: http://127.0.0.1:9001/index.php/board/view?id=".$id);
 	}
 
+	public function board_delete() {
+		$id = $this->input->get('id');
+
+		$this->Board_model->board_delete($id);
+
+		header("Location: http://127.0.0.1:9001/index.php/board/list");
+	}
+
 }

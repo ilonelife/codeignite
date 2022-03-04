@@ -63,16 +63,32 @@ class Board_model extends CI_Model {
 
     public function board_insert($title, $content) {
         $this->db->query("
-        INSERT INTO ci_board(title, content)
-        values ('".$title."', '".$content."');
+        INSERT INTO 
+                ci_board(title, content)
+        values 
+                ('".$title."', '".$content."');
         ");
     }
 
     public function board_update($id, $title, $content) {
         $this->db->query("
-        UPDATE ci_board
-        SET title = '".$title."', content = '".$content."'
-        WHERE _id = ".$id."
+        UPDATE 
+                ci_board
+        SET 
+                title = '".$title."', content = '".$content."'
+        WHERE 
+                _id = ".$id."
+        ");
+    }
+
+    public function board_delete($id) {
+        $this->db->query("
+        UPDATE 
+                ci_board
+        SET 
+                status = 1
+        WHERE 
+                _id = ".$id."
         ");
     }
  
