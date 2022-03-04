@@ -1,8 +1,9 @@
-제목 : 블라블라 <br/>
-작성자 : 홍길동 <br />
-내용 :  <br />
-아아아ㅏ아아아앙아ㅏㅇ아아아아
+
+제목 : <?php echo $result->title?> <br />
+작성자 : <?php echo $result->name?> <br />
+내용 : <br />
+<?php echo nl2br($result->content)?>
 <br /><br />
 
-<a href=""> 글수정</a>
-<a href=""> 글삭제</a>
+<a href="">글수정</a> 
+<a href="">글삭제</a>

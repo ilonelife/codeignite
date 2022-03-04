@@ -46,7 +46,14 @@ class Board extends CI_Controller {
 	}
 
 	public function view(){
-		$this->load->view('board/view');
+		
+		$id =  $this->input->get('id');
+
+		$result = $this->Board_model->view_select($id);
+		
+		$data['result'] = $result;
+
+		$this->load->view('board/view',$data);
 	}
 
 	public function input(){
