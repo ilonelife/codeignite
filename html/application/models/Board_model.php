@@ -72,7 +72,7 @@ class Board_model extends CI_Model {
         $this->db->query("
         UPDATE ci_board
         SET title = '".$title."', content = '".$content."'
-        WHERE _id = '".$id."'
+        WHERE _id = ".$id."
         ");
     }
  

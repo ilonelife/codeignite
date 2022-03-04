@@ -26,7 +26,7 @@ class Form extends CI_Controller {
 
 		$this->Board_model->board_update($id, $title, $content);
 
-		header("Location: http://127.0.0.1:9001/index.php/board/list");
+		header("Location: http://127.0.0.1:9001/index.php/board/view?id=".$id);
 	}
 
 }
