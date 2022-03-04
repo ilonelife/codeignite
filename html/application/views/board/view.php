@@ -5,5 +5,5 @@
 <?php echo nl2br($result->content)?>
 <br /><br />
 
-<a href="">글수정</a> 
+<a href="/index.php/board/update?id=<?php echo $result->_id?>">글수정</a> 
 <a href="">글삭제</a>

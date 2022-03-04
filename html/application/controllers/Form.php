@@ -19,4 +19,14 @@ class Form extends CI_Controller {
 		header("Location: http://127.0.0.1:9001/index.php/board/list");
 	}
 
+	public function board_update() {
+		$id = $this->input->post('id');
+		$title =  $this->input->post('title');
+		$content = $this->input->post('content');
+
+		$this->Board_model->board_update($id, $title, $content);
+
+		header("Location: http://127.0.0.1:9001/index.php/board/list");
+	}
+
 }

@@ -61,6 +61,13 @@ class Board extends CI_Controller {
 	}
 
 	public function update(){
-		$this->load->view('board/update');
+
+		$id =  $this->input->get('id');
+
+		$result = $this->Board_model->view_select($id);
+		
+		$data['result'] = $result;
+
+		$this->load->view('board/update', $data);
 	}
 }
