@@ -1,6 +1,6 @@
-<form>
+<form method="post" action="/index.php/form/board_insert">
     <input type="text" name="title"> <br/>
     <textarea name = "content"></textarea><br/>
-    <intput type="submit" value="글등록">
+    <input type="submit" value="글등록">
 </form>
 

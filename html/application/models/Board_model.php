@@ -60,5 +60,12 @@ class Board_model extends CI_Model {
         return $data->row();
 
     }
+
+    public function board_insert($title, $content) {
+        $this->db->query("
+        INSERT INTO ci_board(title, content)
+        values ('".$title."', '".$content."');
+        ");
+    }
  
 }
