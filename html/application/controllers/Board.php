@@ -54,6 +54,7 @@ class Board extends CI_Controller {
 		$data['result'] = $result;
 
 		$this->load->view('board/view',$data);
+		$this->comment_list($id);
 	}
 
 	public function input(){
@@ -69,5 +70,16 @@ class Board extends CI_Controller {
 		$data['result'] = $result;
 
 		$this->load->view('board/update', $data);
+	}
+
+	private function comment_list($board_id)
+	{ 
+		$data['result'] = $this->Board_model->comment_list($board_id);
+		$data['board_id'] = $board_id;
+		$this->load->view("comment/list",$data);
+	}
+
+	public function comment_input(){
+		$this->load->view('comment/list');
 	}
 }
