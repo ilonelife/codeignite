@@ -20,7 +20,7 @@
 <script>
 function comment_delete(str, board_id)
 {
-    if(confirm("진짜 삭제 하실래요?"))
+    if(confirm("진짜 삭제?"))
     {
         location.href="/index.php/form/comment_delete?id="+str+"&board_id="+board_id;
     }
