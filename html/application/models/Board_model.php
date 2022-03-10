@@ -166,4 +166,28 @@ class Board_model extends CI_Model {
             return false;
         }
     }
+
+    public function member_login($email, $password) 
+    {
+        $data = $this->db->query("
+        select 
+            _id
+        from 
+            ci_member
+        where  
+            email = '".$email."'
+            and
+            passwd =  '".$password."'
+        ");
+
+        $result = $data->row();
+
+        if(isset($result->_id))
+        {
+                return true;
+        }
+        else {
+                return false;
+        }
+    }
 }

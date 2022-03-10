@@ -11,16 +11,17 @@ class Member extends CI_Controller {
 
 	public function index()
 	{
-		echo "여기는 테스트 페이지 입니다.. 퍼스트";
+		echo "회원 프로그램";
 	}
 
-	public function input() {
-		$this->load->view('member/input');
+	public function input() { 
+		$data['msg'] = $this->input->get("msg");
+		$this->load->view('member/input',$data);
 	}
 	
 
 	public function login() {
-		echo " 회원 가입";
+		$this->load->view('member/login');
 	}
 
 	public function update() {
@@ -36,10 +37,28 @@ class Member extends CI_Controller {
 
 		if($result == true)
 		{
-			echo "회원가입이 완료되었습니다.";
+			header("Location: /index.php/member/login");
 		}
 		else {
-			echo "이미 가입된 이메일 입니다.";
+			header("Location: /index.php/member/input?msg=있는 이메일입 니다");
+		}
+	}
+
+	public function session() {
+		$email =  $this->input->post("email"); 
+		$password = $this->input->post("password");
+		$password = md5($password);
+
+		$result = $this->Board_model->member_login($email,$password);
+ 
+
+		if($result == true)
+		{
+			echo '로그인 성공';
+	
+		}
+		else {
+			echo '로그인 실패';
 		}
 	}
 }
