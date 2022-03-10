@@ -132,5 +132,35 @@ class Board_model extends CI_Model {
                 ('".$content."', ".$board_id.");
         ");
     }
+
+
  
+
+    public function member_insert($email, $password) {
+
+        $result = $this->db->query("
+        SELECT 
+                email
+        FROM 
+                ci_member
+        WHERE
+                email = '".$email."'
+        ");
+
+        $row = $result->row();
+        var_dump($row);
+      
+        if ($row != '') {
+                echo "이미 있는 아이디입니다";
+        }
+        else {
+                $this->db->query("
+                INSERT INTO 
+                        ci_member(email, passwd)
+                values 
+                        ('".$email."', '".$password."');
+                ");
+                echo "회원가입 성공!!!";
+        }
+    }
 }
