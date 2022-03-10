@@ -50,6 +50,7 @@ class Board_model extends CI_Model {
             _id,
             title,
             content,
+            member_id,
             (select email from ci_member where _id = ci_board.member_id ) as name
         from 
             ci_board as ci_board
@@ -61,12 +62,12 @@ class Board_model extends CI_Model {
 
     }
 
-    public function board_insert($title, $content) {
+    public function board_insert($title, $content, $member_id) {
         $this->db->query("
         INSERT INTO 
-                ci_board(title, content)
+                ci_board(title, content, member_id)
         values 
-                ('".$title."', '".$content."');
+                ('".$title."', '".$content."', '".$member_id."');
         ");
     }
 

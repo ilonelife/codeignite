@@ -54,10 +54,9 @@ class Board extends CI_Controller {
 	public function view(){
 		
 		$id =  $this->input->get('id');
-
 		$result = $this->Board_model->view_select($id);
-		
 		$data['result'] = $result;
+		$data['member_id'] = $this->session->userdata('_id');
 
 		$this->load->view('board/view',$data);
 		$this->comment_list($id);

@@ -7,14 +7,16 @@ class Form extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Board_model');  
+		$this->load->library('session');
 	}
 
 	public function board_insert() {
 		//echo $this->input->post('title');
 		$title = $this->input->post('title');
 		$content = $this->input->post('content');
+		$member_id = $this->session->userdata('_id');
 
-		$this->Board_model->board_insert($title, $content);
+		$this->Board_model->board_insert($title, $content, $member_id);
 
 		header("Location: http://127.0.0.1:9001/index.php/board/list");
 	}

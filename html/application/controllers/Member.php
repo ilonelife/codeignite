@@ -30,8 +30,9 @@ class Member extends CI_Controller {
 
 	public function update(){
 
-		$id =  $this->session->userdata('_id');
-		$result = $this->Board_model->view_select_id($id);
+	//	$id =  $this->session->userdata('_id');
+	//	$result = $this->Board_model->view_select_id($id);
+		$data['msg'] = $this->input->get("msg");
 		$data['result'] = $result;
 		$data['email'] = $this->session->userdata('email');
 		$this->load->view('member/update', $data);
@@ -105,9 +106,9 @@ class Member extends CI_Controller {
 
 			$this->session->set_userdata($newdata);
 
-			header("Location: /index.php/member/update");
+	//		header("Location: /index.php/member/update");
 
-			//header("Location: /index.php/board/list");
+			header("Location: /index.php/board/list");
 		}
 		else
 		{ 
