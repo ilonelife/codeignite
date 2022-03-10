@@ -6,7 +6,13 @@ class Board extends CI_Controller {
 	public function __construct()  //생성자
 	{
 		parent::__construct();
-		$this->load->model('Board_model');  
+		$this->load->model('Board_model');
+		$this->load->library('session');
+
+		if($this->session->userdata('email') == "")
+		{
+			header("Location: /index.php/member/login"); 
+		}
 	}
 
 	public function index()

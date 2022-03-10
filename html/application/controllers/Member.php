@@ -6,7 +6,8 @@ class Member extends CI_Controller {
 	public function __construct()  //생성자
 	{
 		parent::__construct();
-		$this->load->model('Board_model');  
+		$this->load->model('Board_model');
+		$this->load->library('session');
 	}
 
 	public function index()
@@ -20,12 +21,14 @@ class Member extends CI_Controller {
 	}
 	
 
-	public function login() {
-		$this->load->view('member/login');
+	public function login(){
+		
+		$this->session->sess_destroy(); // 세션 삭제
+		$this->load->view("member/login");
 	}
 
-	public function update() {
-		echo " 글 수정";
+	public function update(){
+		echo "회원정보수정";
 	}
 
 	public function insert(){
@@ -44,21 +47,28 @@ class Member extends CI_Controller {
 		}
 	}
 
-	public function session() {
-		$email =  $this->input->post("email"); 
+	public function session()
+	{
+		$email = $this->input->post("email"); 
 		$password = $this->input->post("password");
 		$password = md5($password);
 
-		$result = $this->Board_model->member_login($email,$password);
- 
+		$result = $this->Board_model->login_select($email,$password);
 
-		if($result == true)
+		if(isset($result->_id))
 		{
-			echo '로그인 성공';
-	
+			$newdata = array( 
+				'email'     => $email,
+				'_id' 		=> $result->_id
+			);
+
+			$this->session->set_userdata($newdata);
+
+			header("Location: /index.php/board/list");
 		}
-		else {
-			echo '로그인 실패';
+		else
+		{ 
+			header("Location: /index.php/member/login");
 		}
 	}
 }

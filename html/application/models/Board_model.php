@@ -167,27 +167,18 @@ class Board_model extends CI_Model {
         }
     }
 
-    public function member_login($email, $password) 
+    public function login_select($email,$password)
     {
         $data = $this->db->query("
         select 
-            _id
+            _id 
         from 
             ci_member
         where  
-            email = '".$email."'
-            and
-            passwd =  '".$password."'
+            email = '".$email."' and
+            passwd = '".$password."'
         ");
 
-        $result = $data->row();
-
-        if(isset($result->_id))
-        {
-                return true;
-        }
-        else {
-                return false;
-        }
+        return $data->row();
     }
 }
