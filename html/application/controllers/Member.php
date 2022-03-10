@@ -27,14 +27,19 @@ class Member extends CI_Controller {
 		echo " 글 수정";
 	}
 
-	public function insert() {
-		//echo $this->input->post('title');
-		$email = $this->input->post('email');
-		$password = $this->input->post('password');
+	public function insert(){
+		$email =  $this->input->post("email"); 
+		$password = $this->input->post("password");
 		$password = md5($password);
+ 
+		$result = $this->Board_model->member_insert($email,$password);
 
-		$result = $this->Board_model->member_insert($email, $password);
-
-	//	header("Location: http://127.0.0.1:9001/index.php/member/input");
+		if($result == true)
+		{
+			echo "회원가입이 완료되었습니다.";
+		}
+		else {
+			echo "이미 가입된 이메일 입니다.";
+		}
 	}
 }

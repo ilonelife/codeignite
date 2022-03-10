@@ -133,34 +133,37 @@ class Board_model extends CI_Model {
         ");
     }
 
+    public function member_select_email($email)
+    {
+        $data = $this->db->query("
+        select 
+            _id 
+        from 
+            ci_member
+        where  
+            email = '".$email."'
+        ");
+
+        return $data->row();
+    }
 
  
 
-    public function member_insert($email, $password) {
+    public function member_insert($email, $password) 
+    {
+        $result = $this->member_select_email($email);
 
-        $result = $this->db->query("
-        SELECT 
-                email
-        FROM 
-                ci_member
-        WHERE
-                email = '".$email."'
-        ");
+        if(!isset($result->_id))
+        {
+            $this->db->query("
+                INSERT INTO ci_member(email,passwd)
+                values('".$email."','".$password."')
+            ");
+            return true;
 
-        $row = $result->row();
-        var_dump($row);
-      
-        if ($row != '') {
-                echo "이미 있는 아이디입니다";
         }
-        else {
-                $this->db->query("
-                INSERT INTO 
-                        ci_member(email, passwd)
-                values 
-                        ('".$email."', '".$password."');
-                ");
-                echo "회원가입 성공!!!";
+        else{
+            return false;
         }
     }
 }
