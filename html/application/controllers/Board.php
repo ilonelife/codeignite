@@ -12,7 +12,7 @@ class Board extends CI_Controller {
 		if($this->session->userdata('email') == "")
 		{
 			header("Location: /index.php/member/login"); 
-		}
+		}		
 	}
 
 	public function index()

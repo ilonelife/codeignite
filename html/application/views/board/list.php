@@ -25,4 +25,4 @@ foreach($list as $row)
 <br />
 
 
-<a href='/index.php/board/input/'>글쓰기</a>
+<a href='/index.php/board/input/'>글쓰기</a><br/>

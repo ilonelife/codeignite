@@ -27,9 +27,49 @@ class Member extends CI_Controller {
 		$this->load->view("member/login");
 	}
 
+
 	public function update(){
-		echo "회원정보수정";
+
+		$id =  $this->session->userdata('_id');
+		$result = $this->Board_model->view_select_id($id);
+		$data['result'] = $result;
+		$data['email'] = $this->session->userdata('email');
+		$this->load->view('member/update', $data);
 	}
+
+	public function member_update() {
+		$id = $this->input->post('id');
+		$email =  $this->input->post('email');
+		$password = $this->input->post('password');
+		$password = md5($password);
+
+		$this->Board_model->member_update($id, $email, $password);
+
+	//	header("Location: http://127.0.0.1:9001/index.php/board/view?id=".$id);
+	}
+
+	public function modity() {
+		$old_email = $this->session->userdata("email");
+		$old_password = md5($this->input->post('old_password'));
+
+		$new_email = $this->input->post('email');
+		$new_password = md5($this->input->post('new_password'));
+
+		$_id = $this->session->userdata('_id');
+
+		$result = $this->Board_model->login_select($old_email, $old_password);
+
+		if(isset($result->_id))
+		{
+			$this->Board_model->member_update($_id, $new_email, $new_password);
+			header("Location: /index.php/member/login?msg-새로 로그인해 주세요");
+		}
+		else
+		{
+			header("Location: /index.php/member/update?msg=비밀번호가 틀렸습니다");
+		}
+	}
+
 
 	public function insert(){
 		$email =  $this->input->post("email"); 
@@ -58,13 +98,16 @@ class Member extends CI_Controller {
 		if(isset($result->_id))
 		{
 			$newdata = array( 
+				'_id' 		=> $result->_id,
 				'email'     => $email,
-				'_id' 		=> $result->_id
+				'password' 	=> $result->passwd
 			);
 
 			$this->session->set_userdata($newdata);
 
-			header("Location: /index.php/board/list");
+			header("Location: /index.php/member/update");
+
+			//header("Location: /index.php/board/list");
 		}
 		else
 		{ 

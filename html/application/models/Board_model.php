@@ -181,4 +181,36 @@ class Board_model extends CI_Model {
 
         return $data->row();
     }
+
+
+    public function member_update($id, $email, $password) {
+        $this->db->query("
+                UPDATE 
+                        ci_member
+                SET 
+                        email = '".$email."', passwd = '".$password."'
+                WHERE 
+                        _id = ".$id."
+        ");
+    }
+
+
+    public function view_select_id($id){
+
+        $data = $this->db->query("
+        select 
+            _id,
+            email,
+            passwd
+        from 
+            ci_member as ci_member
+        where  
+            _id = ".$id."
+        ");
+
+
+        return $data->row();
+    }
+
+
 }
