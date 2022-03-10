@@ -6,21 +6,22 @@ class Board_model extends CI_Model {
         $this->load->database(); 
     }
 
-    public function list_total($search)
+    public function list_total($search, $board_type)
     {
-        $data = $this->db->query('
+        $data = $this->db->query("
         select 
-                count(*) as cnt 
+            count(*) as cnt 
         from 
-                ci_board 
+            ci_board 
         where 
-                status = 0 and 
-                title like "%'.$search.'%"
-        ');
+            status = 0
+            AND board_type = '".$board_type."'
+            AND title LIKE '%".$search."%'
+        ");
         return $data->row();
     }
 
-    public function list_select($now_page, $search)
+    public function list_select($now_page, $search, $board_type)
     {
         if($now_page == '')
             $now_page = 0;
@@ -33,8 +34,9 @@ class Board_model extends CI_Model {
         from 
             ci_board as ci_board
         where 
-            status = 0 and
-            title like "%'.$search.'%"
+            status = 0 
+            AND board_type = "'.$board_type.'"
+            AND title LIKE "%'.$search.'%"
         order by _id desc
         limit '.$now_page.',10
         ');
@@ -62,12 +64,12 @@ class Board_model extends CI_Model {
 
     }
 
-    public function board_insert($title, $content, $member_id) {
+    public function board_insert($title, $content, $member_id, $board_type) {
         $this->db->query("
         INSERT INTO 
-                ci_board(title, content, member_id)
+                ci_board(title, content, member_id, board_type)
         values 
-                ('".$title."', '".$content."', '".$member_id."');
+                ('".$title."', '".$content."', '".$member_id."','".$board_type."');
         ");
     }
 
@@ -84,12 +86,12 @@ class Board_model extends CI_Model {
 
     public function board_delete($id) {
         $this->db->query("
-        UPDATE 
-                ci_board
-        SET 
-                status = 1
-        WHERE 
-                _id = ".$id."
+            UPDATE 
+                    ci_board
+            SET 
+                    status = 1
+            WHERE 
+                    _id = ".$id."
         ");
     }
 
@@ -108,8 +110,7 @@ class Board_model extends CI_Model {
                 status = 0
         ");
         
-        $result = $data->result_array();
-        return $result;
+        return $data->result_array();
     }
 
 
@@ -125,12 +126,12 @@ class Board_model extends CI_Model {
     }
 
 
-    public function comment_insert($content, $board_id) {
+    public function comment_insert($content, $board_id, $member_id) {
         $this->db->query("
         INSERT INTO 
-                ci_comment(content, board_id)
+                ci_comment(content, board_id, member_id)
         values 
-                ('".$content."', ".$board_id.");
+                ('".$content."', ".$board_id.", ".$member_id.")
         ");
     }
 
@@ -195,7 +196,7 @@ class Board_model extends CI_Model {
         ");
     }
 
-
+    // 필요 없나????
     public function view_select_id($id){
 
         $data = $this->db->query("

@@ -1,6 +1,4 @@
 
-
-
 제목 : <?php echo $result->title?> <br />
 작성자 : <?php echo $result->name?> <br />
 내용 : <br />
